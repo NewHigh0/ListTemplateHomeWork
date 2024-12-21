@@ -27,4 +27,9 @@ public:
     T& front() const;
     void clear();
     bool empty() const;
+
+    int find(const T& value) const;
+    void erase(int position);
+    void reverse();
+
 };

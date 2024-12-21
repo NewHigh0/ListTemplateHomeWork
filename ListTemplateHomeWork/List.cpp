@@ -86,4 +86,65 @@ bool List<T>::empty() const {
     return size == 0;
 }
 
+template <typename T>
+int List<T>::find(const T& value) const {
+    Node* current = head;
+    int index = 0;
+    while (current) {
+        if (current->data == value) {
+            return index;
+        }
+        current = current->next;
+        ++index;
+    }
+    return -1;
+}
+
+template <typename T>
+void List<T>::erase(int position) {
+
+    Node* current = head;
+    int index = 0;
+
+    while (index < position) {
+        current = current->next;
+        ++index;
+    }
+
+    if (current->prev) {
+        current->prev->next = current->next;
+    }
+    else {
+        head = current->next;
+    }
+
+    if (current->next) {
+        current->next->prev = current->prev;
+    }
+    else {
+        tail = current->prev;
+    }
+
+    delete current;
+    --size;
+}
+
+template <typename T>
+void List<T>::reverse() {
+    Node* current = head;
+    Node* temp = nullptr;
+
+    while (current) {
+        temp = current->prev;
+        current->prev = current->next;
+        current->next = temp;
+        current = current->prev;
+    }
+
+    temp = head;
+    head = tail;
+    tail = temp;
+}
+
+
 
